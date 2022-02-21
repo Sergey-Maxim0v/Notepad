@@ -125,6 +125,7 @@ h6 {
     box-shadow: 0 0 10px #FFCC99;
     background-color: #FFCC99;
     resize: none;
+    white-space: nowrap;
 }
 
 .buttonsRow {
