@@ -11,13 +11,18 @@
 <body>
 <div class="layout">
   <h1 class="title">Notepad</h1>
+  <p class="subTitle">TXT editor</p>
   <div class="content">
     <textarea placeholder="Enter text" class="textInput" id="textInput" autofocus tabindex="1"></textarea>
     <div class="buttonsRow">
+      <label for="file-upload"  class="button" >
+        <input id="file-upload"  type="file" accept=".txt">
+        Upload file
+      </label>
       <div class="fileNameInputRow">
         <input placeholder="Enter file name" class="fileNameInput" id="fileNameInput" type="text" tabindex="2"/>
       </div>
-      <a class="saveButton" id="saveBtnTxt">Download as "text.txt"</a>
+      <a class="saveButton button" id="saveBtnTxt">Download as "text.txt"</a>
     </div>
   </div>
 </div>
