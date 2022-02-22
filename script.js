@@ -18,7 +18,7 @@ const fileName = {
     }
 }
 
-fileInput.addEventListener('change', updateImageDisplay);
+fileInput.addEventListener('change', processingUploadedFile);
 
 txtSaveButton.download = `${fileName.name}.txt`
 
@@ -34,9 +34,21 @@ fileNameInput.oninput = function () {
     txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
 }
 
-function updateImageDisplay(e) {
+function processingUploadedFile() {
     const file = fileInput.files[0]
     const name = file.name.slice(0, file.name.length - 4)
+    const reader = new FileReader()
+
+    reader.readAsText(file)
+    reader.onload = function () {
+        fileValue.setValue(reader.result)
+        textInput.value = fileValue.value
+    };
+    reader.onerror = function () {
+        alert(`file read error!!!`);
+        console.log(`file read error: ${reader.error}`)
+    };
+
     fileName.setName(name)
     fileUploadLabel.innerHTML = `${fileName.name}.txt`
     fileNameInput.value = fileName.name
