@@ -14,7 +14,7 @@
 Описание
 ---
 <div align="center">
-<img src="./readmeImage.png">
+<img src="assets/images/readmeImage.png">
 </div>
 
 
