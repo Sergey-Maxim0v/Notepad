@@ -4,6 +4,13 @@ const txtSaveButton = document.getElementById('saveBtnTxt')
 const fileInput = document.getElementById('fileUpload');
 const fileUploadLabel = document.getElementById('fileUploadLabel');
 
+const forbiddenSymbolsArray = ['+', '|', '>', '<', '"', '?', '*', ':', '/', '%', '\\', '!', '@']
+const notValidFileNameMessage = [
+  `The file name must not contain characters: ${forbiddenSymbolsArray.join('')}`,
+  `The filename must not end with a space character`,
+  `The filename must not end with a dot`,
+].join('\n')
+
 const fileValue = {
   value: '',
   setValue(value) {
@@ -56,33 +63,34 @@ function processingUploadedFile() {
 }
 
 txtSaveButton.addEventListener('click', () => {
-  if (checkValidFileName(fileName.name)) {
+  if (checkIsValidFileName(fileName.name)) {
     const txtBlob = new Blob([fileValue.value], {type: 'text/plain'})
     txtSaveButton.href = URL.createObjectURL(txtBlob)
   } else {
+    const correctedName = getFilterSymbolsFileName(fileName.name, forbiddenSymbolsArray)
+    alert(notValidFileNameMessage)
+    fileName.setName(correctedName)
+    fileNameInput.value = correctedName
+    txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
     return
   }
 })
 
-const checkValidFileName = (fileName) => {
-  const forbiddenSymbols = ['+', '|', '>', '<', '"', '?', '*', ':', '/', '%', '\\', '!', '@']
-
+const checkIsValidFileName = (fileName) => {
   for (let i = 0; i < fileName.length; i++) {
-    if (forbiddenSymbols.includes(fileName[i])) {
-      alert(`The file name must not contain characters: ${forbiddenSymbols.join('')}`)
-      return false
-    }
+    if (forbiddenSymbolsArray.includes(fileName[i])) return false
   }
-
-  if (fileName[fileName.length - 1] === ' ') {
-    alert('The filename must not end with a space character')
-    return false
-  }
-
-  if (fileName[fileName.length - 1] === '.') {
-    alert('The filename must not end with a dot')
-    return false
-  }
-
-  return true
+  return !(fileName[fileName.length - 1] === ' ' || fileName[fileName.length - 1] === '.');
 }
+
+const getFilterSymbolsFileName = (fileName, arraySymbols) => {
+  let correctedName = fileName.slice()
+  for (let symbol of arraySymbols) {
+    correctedName = correctedName.split('').filter((a) => a !== symbol).join('')
+  }
+  if (correctedName[correctedName.length - 1] === ' ' || correctedName[correctedName.length - 1] === '.') {
+    correctedName = correctedName.slice(0, -1)
+  }
+  return correctedName
+}
+
