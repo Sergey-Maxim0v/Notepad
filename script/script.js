@@ -37,6 +37,7 @@ textInput.oninput = function () {
 fileNameInput.oninput = function () {
   fileName.setName(fileNameInput.value);
   fileNameInput.innerHTML = fileName.name
+  setFileNameInputNotValidStyle(fileName.name, fileNameInput)
   txtSaveButton.download = `${fileName.name}.txt`
   txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
 }
@@ -72,6 +73,7 @@ txtSaveButton.addEventListener('click', () => {
     fileName.setName(correctedName)
     fileNameInput.value = correctedName
     txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
+    setFileNameInputNotValidStyle(fileName.name, fileNameInput)
     return
   }
 })
@@ -94,3 +96,10 @@ const getFilterSymbolsFileName = (fileName, arraySymbols) => {
   return correctedName
 }
 
+const setFileNameInputNotValidStyle = (fileName, input) => {
+  if (!checkIsValidFileName(fileName)) {
+    input.classList.add('fileNameInputNotValid')
+  } else {
+    input.classList.remove('fileNameInputNotValid')
+  }
+}

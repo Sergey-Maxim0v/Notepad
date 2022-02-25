@@ -186,6 +186,10 @@ body {
   font-size: 18px;
 }
 
+.fileNameInputNotValid {
+  color: #D90000;
+}
+
 .button {
   margin: 0 20px;
   width: auto;
@@ -257,5 +261,3 @@ input[type="file"] {
   right: 20px;
   transform: translate(0, -50%);
 }
-
-/* #D90000 */
