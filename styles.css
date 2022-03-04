@@ -207,10 +207,6 @@ body {
   transition: transform 0.15s;
 }
 
-input[type="file"] {
-  display: none;
-}
-
 .button:hover {
   transform: scale(1.05);
 }
@@ -260,4 +256,47 @@ input[type="file"] {
   top: 50%;
   right: 20px;
   transform: translate(0, -50%);
+}
+
+.fileUploadLabel {
+  margin: 0 20px 0 0;
+  width: auto;
+  height: 40px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+
+  box-shadow: 0 0 5px #9A9A9A;
+  border: 1px solid #9A9A9A;
+  border-radius: 5px;
+  background-color: #FFF;
+  font-size: 16px;
+}
+
+.removeButton {
+  width: 20px;
+  height: 20px;
+  background-image: url("./assets/images/logo-black-delete.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 120%;
+  margin: 0 0 0 20px;
+  cursor: pointer;
+  transition: background-size 0.15s;
+}
+
+.removeButton:hover {
+  background-size: 150%;
+}
+
+.removeButton:active {
+  transition: transform 0.05s;
+  background-size: 130%;
+}
+.fileUploadRow{
+  display: block;
+}
+
+input[type="file"] {
+  display: none;
 }

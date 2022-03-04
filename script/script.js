@@ -2,7 +2,10 @@ const textInput = document.getElementById('textInput')
 const fileNameInput = document.getElementById('fileNameInput')
 const txtSaveButton = document.getElementById('saveBtnTxt')
 const fileInput = document.getElementById('fileUpload');
+const fileUploadRow = document.getElementById('fileUploadRow');
 const fileUploadLabel = document.getElementById('fileUploadLabel');
+
+const removeButton = document.createElement("div");
 
 const forbiddenSymbolsArray = ['+', '|', '>', '<', '"', '?', '*', ':', '/', '%', '\\', '!', '@']
 const notValidFileNameMessage = [
@@ -26,6 +29,7 @@ const fileName = {
 }
 
 fileInput.addEventListener('change', processingUploadedFile);
+removeButton.addEventListener('click', resetFileInput)
 
 txtSaveButton.download = `${fileName.name}.txt`
 
@@ -61,6 +65,10 @@ function processingUploadedFile() {
   fileUploadLabel.innerHTML = `${fileName.name}.txt`
   fileNameInput.value = fileName.name
   txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
+  fileUploadLabel.classList.remove('button')
+  fileUploadLabel.classList.add('fileUploadLabel')
+
+  addRemoveButton()
 }
 
 txtSaveButton.addEventListener('click', () => {
@@ -103,3 +111,15 @@ const setFileNameInputNotValidStyle = (fileName, input) => {
     input.classList.remove('fileNameInputNotValid')
   }
 }
+
+function addRemoveButton() {
+  removeButton.classList.add('removeButton')
+  fileUploadLabel.append(removeButton)
+}
+
+function resetFileInput() {
+  console.log(resetFileInput)
+}
+
+
+
