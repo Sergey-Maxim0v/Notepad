@@ -2,10 +2,8 @@ const textInput = document.getElementById('textInput')
 const fileNameInput = document.getElementById('fileNameInput')
 const txtSaveButton = document.getElementById('saveBtnTxt')
 const fileInput = document.getElementById('fileUpload');
-const fileUploadRow = document.getElementById('fileUploadRow');
 const fileUploadLabel = document.getElementById('fileUploadLabel');
 
-const removeButton = document.createElement("div");
 
 const forbiddenSymbolsArray = ['+', '|', '>', '<', '"', '?', '*', ':', '/', '%', '\\', '!', '@']
 const notValidFileNameMessage = [
@@ -29,7 +27,6 @@ const fileName = {
 }
 
 fileInput.addEventListener('change', processingUploadedFile);
-removeButton.addEventListener('click', resetFileInput)
 
 txtSaveButton.download = `${fileName.name}.txt`
 
@@ -40,13 +37,14 @@ textInput.oninput = function () {
 
 fileNameInput.oninput = function () {
   fileName.setName(fileNameInput.value);
-  fileNameInput.innerHTML = fileName.name
   setFileNameInputNotValidStyle(fileName.name, fileNameInput)
   txtSaveButton.download = `${fileName.name}.txt`
   txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
 }
 
 function processingUploadedFile() {
+  if (!fileInput.files.length) return
+
   const file = fileInput.files[0]
   const name = file.name.slice(0, file.name.length - 4)
   const reader = new FileReader()
@@ -62,13 +60,8 @@ function processingUploadedFile() {
   };
 
   fileName.setName(name)
-  fileUploadLabel.innerHTML = `${fileName.name}.txt`
   fileNameInput.value = fileName.name
   txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
-  fileUploadLabel.classList.remove('button')
-  fileUploadLabel.classList.add('fileUploadLabel')
-
-  addRemoveButton()
 }
 
 txtSaveButton.addEventListener('click', () => {
@@ -110,15 +103,6 @@ const setFileNameInputNotValidStyle = (fileName, input) => {
   } else {
     input.classList.remove('fileNameInputNotValid')
   }
-}
-
-function addRemoveButton() {
-  removeButton.classList.add('removeButton')
-  fileUploadLabel.append(removeButton)
-}
-
-function resetFileInput() {
-  console.log(resetFileInput)
 }
 
 

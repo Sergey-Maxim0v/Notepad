@@ -293,9 +293,6 @@ body {
   transition: transform 0.05s;
   background-size: 130%;
 }
-.fileUploadRow{
-  display: block;
-}
 
 input[type="file"] {
   display: none;
