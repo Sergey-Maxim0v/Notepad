@@ -3,7 +3,6 @@ const fileNameInput = document.getElementById('fileNameInput')
 const txtSaveButton = document.getElementById('saveBtnTxt')
 const fileInput = document.getElementById('fileUpload');
 
-
 const forbiddenSymbolsArray = ['+', '|', '>', '<', '"', '?', '*', ':', '/', '%', '\\', '!', '@']
 const notValidFileNameMessage = [
   `The file name must not contain characters: ${forbiddenSymbolsArray.join('')}`,
@@ -38,7 +37,7 @@ fileNameInput.oninput = function () {
   fileName.setName(fileNameInput.value);
   setFileNameInputNotValidStyle(fileName.name, fileNameInput)
   txtSaveButton.download = `${fileName.name}.txt`
-  txtSaveButton.innerHTML = `Download as "${fileName.name}.pdf"`
+  txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
 }
 
 function processingUploadedFile() {
@@ -78,7 +77,6 @@ txtSaveButton.addEventListener('click', () => {
   }
 })
 
-
 const checkIsValidFileName = (fileName) => {
   for (let i = 0; i < fileName.length; i++) {
     if (forbiddenSymbolsArray.includes(fileName[i])) return false
@@ -104,6 +102,3 @@ const setFileNameInputNotValidStyle = (fileName, input) => {
     input.classList.remove('fileNameInputNotValid')
   }
 }
-
-
-
