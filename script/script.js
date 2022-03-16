@@ -1,7 +1,6 @@
 const textInput = document.getElementById('textInput')
 const fileNameInput = document.getElementById('fileNameInput')
 const txtSaveButton = document.getElementById('saveBtnTxt')
-const pdfSaveButton = document.getElementById('saveBtnPdf')
 const fileInput = document.getElementById('fileUpload');
 
 
@@ -29,7 +28,6 @@ const fileName = {
 fileInput.addEventListener('change', processingUploadedFile);
 
 txtSaveButton.download = `${fileName.name}.txt`
-pdfSaveButton.download = `${fileName.name}.pdf`
 
 textInput.oninput = function () {
   fileValue.setValue(textInput.value)
@@ -41,8 +39,6 @@ fileNameInput.oninput = function () {
   setFileNameInputNotValidStyle(fileName.name, fileNameInput)
   txtSaveButton.download = `${fileName.name}.txt`
   txtSaveButton.innerHTML = `Download as "${fileName.name}.pdf"`
-  pdfSaveButton.download = `${fileName.name}.pdf`
-  pdfSaveButton.innerHTML = `Download as "${fileName.name}.pdf"`
 }
 
 function processingUploadedFile() {
@@ -65,8 +61,7 @@ function processingUploadedFile() {
   fileName.setName(name)
   fileNameInput.value = fileName.name
   txtSaveButton.innerHTML = `Download as "${fileName.name}.txt"`
-  pdfSaveButton.innerHTML = `Download as "${fileName.name}.pdf"`
-  }
+}
 
 txtSaveButton.addEventListener('click', () => {
   if (checkIsValidFileName(fileName.name)) {
@@ -83,20 +78,6 @@ txtSaveButton.addEventListener('click', () => {
   }
 })
 
-pdfSaveButton.addEventListener('click', () => {
-  if (checkIsValidFileName(fileName.name)) {
-    const pdfBlob = new Blob([fileValue.value], {type: "application/pdf"});
-    pdfSaveButton.href = URL.createObjectURL(pdfBlob)
-  } else {
-    const correctedName = getFilterSymbolsFileName(fileName.name, forbiddenSymbolsArray)
-    alert(notValidFileNameMessage)
-    fileName.setName(correctedName)
-    fileNameInput.value = correctedName
-    pdfSaveButton.innerHTML = `Download as "${fileName.name}.pdf"`
-    setFileNameInputNotValidStyle(fileName.name, fileNameInput)
-    return
-  }
-})
 
 const checkIsValidFileName = (fileName) => {
   for (let i = 0; i < fileName.length; i++) {
